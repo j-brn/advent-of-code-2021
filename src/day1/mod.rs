@@ -14,7 +14,7 @@ pub fn part_one(measurements: &[u32]) -> usize {
 pub fn part_two(measurements: &[u32]) -> usize {
     let accumulated_measurements = measurements
         .windows(3)
-        .map(|w| w.iter().sum())
+        .map(|w| w[0] + w[1] + w[2])
         .collect::<Vec<u32>>();
 
     part_one(&accumulated_measurements)
