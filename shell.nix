@@ -8,6 +8,7 @@ in
     buildInputs = [
       cargo
       rustc
+      gnuplot
     ];
     OPENSSL_DEV=openssl.dev;
   }
