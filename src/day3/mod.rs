@@ -28,7 +28,7 @@ fn filter_by_common_bit(index: usize, most_common: bool, numbers: &[u32]) -> Vec
     numbers
         .iter()
         .copied()
-        .filter(|&number| ((number & 1 << index) != 0) == wanted_bit )
+        .filter(|&number| ((number & 1 << index) != 0) == wanted_bit)
         .collect()
 }
 
@@ -71,17 +71,22 @@ fn part_one(numbers: &[u32]) -> u32 {
 fn part_two(numbers: &[u32]) -> u32 {
     let oxygen_numbers = (0..12)
         .rev()
-        .fold_while(numbers.to_vec(), |oxygen_numbers, index| match oxygen_numbers.len() {
-            1 => Done(oxygen_numbers),
-            _ => Continue(filter_by_common_bit(index, true, &oxygen_numbers)),
-        })
+        .fold_while(
+            numbers.to_vec(),
+            |oxygen_numbers, index| match oxygen_numbers.len() {
+                1 => Done(oxygen_numbers),
+                _ => Continue(filter_by_common_bit(index, true, &oxygen_numbers)),
+            },
+        )
         .into_inner();
 
     let co2_numbers = (0..12)
         .rev()
-        .fold_while(numbers.to_vec(), |co2_numbers, index| match co2_numbers.len() {
-            1 => Done(co2_numbers),
-            _ => Continue(filter_by_common_bit(index, false, &co2_numbers)),
+        .fold_while(numbers.to_vec(), |co2_numbers, index| {
+            match co2_numbers.len() {
+                1 => Done(co2_numbers),
+                _ => Continue(filter_by_common_bit(index, false, &co2_numbers)),
+            }
         })
         .into_inner();
 
